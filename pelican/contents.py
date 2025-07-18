@@ -4,7 +4,6 @@ import locale
 import logging
 import os
 import re
-from datetime import timezone
 from html import unescape
 from typing import Any, Optional
 from urllib.parse import ParseResult, unquote, urljoin, urlparse, urlunparse
@@ -343,8 +342,7 @@ class Content:
                     value.geturl(),
                     extra={
                         "limit_msg": (
-                            "Other resources were not found "
-                            "and their urls not replaced"
+                            "Other resources were not found and their urls not replaced"
                         )
                     },
                 )
@@ -593,7 +591,7 @@ class Article(Content):
             if self.date.tzinfo is None:
                 now = datetime.datetime.now()
             else:
-                now = datetime.datetime.utcnow().replace(tzinfo=timezone.utc)
+                now = datetime.datetime.now(datetime.timezone.utc)
             if self.date > now:
                 self.status = "draft"
 
